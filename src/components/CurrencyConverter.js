@@ -2,19 +2,20 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchCurrentRate } from "../actions/actions";
 import CurrentRate from "./CurrentRate";
+import TransactionForm from "./TransactionForm";
+import TransactionList from "./TransactionList";
 // import styled from "styled-components";
 
-const CurrencyConverter = props => {
+const CurrencyConverter = ({ fetchCurrentRate }) => {
   useEffect(() => {
-    props.fetchCurrentRate();
+    fetchCurrentRate();
   }, []);
   return (
     <div>
       <h1>currency converter</h1>
       <CurrentRate />
-      <input placeholder='Transaction name' />
-      <input placeholder='Euro amount' />
-      <button onClick={console.log("add transaction")}>ADD TRANSACTION</button>
+      <TransactionForm />
+      <TransactionList />
     </div>
   );
 };
