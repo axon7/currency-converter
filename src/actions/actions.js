@@ -3,6 +3,8 @@ import axios from "axios";
 export const FETCH_CURRENT_RATE_PENDING = "FETCH_CURRENT_RATE_PENDING";
 export const FETCH_CURRENT_RATE_SUCCESS = "FETCH_CURRENT_RATE_SUCCESS";
 export const FETCH_CURRENT_RATE_FAILURE = "FETCH_CURRENT_RATE_FAILURE";
+export const ADD_TRANSACTION = "ADD_TRANSACTION";
+export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
 
 const URL =
   "https://cors-anywhere.herokuapp.com/http://api.nbp.pl/api/exchangerates/tables/A?format=json";
@@ -18,7 +20,7 @@ export const fetchCurrentRateFailure = error => ({
 
 export const fetchCurrentRateSuccess = data => ({
   type: FETCH_CURRENT_RATE_SUCCESS,
-  payload: data.rates[7]
+  payload: data.rates
 });
 
 export const fetchCurrentRate = () => async dispatch => {
@@ -35,3 +37,13 @@ export const fetchCurrentRate = () => async dispatch => {
 
   console.log("success");
 };
+
+export const addTransaction = transaction => ({
+  type: ADD_TRANSACTION,
+  payload: transaction
+});
+
+export const changeCurrency = currency => ({
+  type: CHANGE_CURRENCY,
+  payload: currency
+});
