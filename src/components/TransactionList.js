@@ -1,7 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
 
-const TransactionList = ({ transactions, currentCurrency }) => {
+import { connect } from "react-redux";
+import { deleteTransaction } from "../actions/actions";
+
+const TransactionList = ({
+  transactions,
+  currentCurrency,
+  deleteTransaction
+}) => {
   return (
     <div>
       {transactions.map((item, index) => {
@@ -9,9 +15,10 @@ const TransactionList = ({ transactions, currentCurrency }) => {
           <div key={index}>
             <p>{item.transaction}</p>
             <p>
+              {item.amount} {currentCurrency.code} =
               {Math.round(item.amount * currentCurrency.mid * 100) / 100}PLN
             </p>
-            <button onClick={() => console.log(index)}>Delete</button>
+            <button onClick={() => deleteTransaction(index)}>Delete</button>
           </div>
         );
       })}
@@ -24,4 +31,4 @@ const mapStateToProps = state => ({
   currentCurrency: state.currentCurrency
 });
 
-export default connect(mapStateToProps)(TransactionList);
+export default connect(mapStateToProps, { deleteTransaction })(TransactionList);

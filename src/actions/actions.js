@@ -5,6 +5,7 @@ export const FETCH_CURRENT_RATE_SUCCESS = "FETCH_CURRENT_RATE_SUCCESS";
 export const FETCH_CURRENT_RATE_FAILURE = "FETCH_CURRENT_RATE_FAILURE";
 export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
+export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
 
 const URL =
   "https://cors-anywhere.herokuapp.com/http://api.nbp.pl/api/exchangerates/tables/A?format=json";
@@ -41,6 +42,11 @@ export const fetchCurrentRate = () => async dispatch => {
 export const addTransaction = transaction => ({
   type: ADD_TRANSACTION,
   payload: transaction
+});
+
+export const deleteTransaction = id => ({
+  type: DELETE_TRANSACTION,
+  payload: id
 });
 
 export const changeCurrency = currency => ({

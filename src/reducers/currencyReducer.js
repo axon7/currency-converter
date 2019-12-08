@@ -3,7 +3,8 @@ import {
   FETCH_CURRENT_RATE_SUCCESS,
   FETCH_CURRENT_RATE_FAILURE,
   ADD_TRANSACTION,
-  CHANGE_CURRENCY
+  CHANGE_CURRENCY,
+  DELETE_TRANSACTION
 } from "../actions/actions";
 
 const initialState = {
@@ -46,6 +47,14 @@ const currencyReducer = (state = initialState, action) => {
       return {
         ...state,
         currentCurrency: rate[0]
+      };
+    case DELETE_TRANSACTION:
+      let filteredTransaction = state.transactions.filter(
+        (item, index) => index !== action.payload
+      );
+      return {
+        ...state,
+        transactions: filteredTransaction
       };
     default:
       return state;
