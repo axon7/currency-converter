@@ -46,7 +46,7 @@ const currencyReducer = (state = initialState, action) => {
       console.log(rate);
       return {
         ...state,
-        currentCurrency: rate[0]
+        currentCurrency: rate[0] || ""
       };
     case DELETE_TRANSACTION:
       let filteredTransaction = state.transactions.filter(
