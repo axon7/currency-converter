@@ -16,6 +16,10 @@ const TransactionForm = ({ addTransaction }) => {
       [e.target.name]: e.target.value
     });
 
+  const clearForm = () => {
+    setFormData({ transaction: "", amount: "" });
+  };
+
   return (
     <form>
       <input
@@ -26,11 +30,17 @@ const TransactionForm = ({ addTransaction }) => {
       />
       <input
         onChange={updateForm}
-        placeholder='Euro amount'
+        placeholder='Amount'
         value={form.amount}
         name='amount'
       />
-      <button type='button' onClick={() => addTransaction(form)}>
+      <button
+        type='button'
+        onClick={() => {
+          addTransaction(form);
+          clearForm();
+        }}
+      >
         ADD TRANSACTION
       </button>
     </form>

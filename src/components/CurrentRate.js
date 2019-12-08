@@ -25,9 +25,9 @@ const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
           }}
         >
           <option defaultChecked>-</option>
-          {data.map(item => {
+          {data.map((item, index) => {
             return (
-              <option id={item.code} value={item.code}>
+              <option key={index} value={item.code}>
                 {item.code}
               </option>
             );

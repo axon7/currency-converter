@@ -6,7 +6,7 @@ const TransactionList = ({ transactions, currentCurrency }) => {
     <div>
       {transactions.map((item, index) => {
         return (
-          <div>
+          <div key={index}>
             <p>{item.transaction}</p>
             <p>
               {Math.round(item.amount * currentCurrency.mid * 100) / 100}PLN
