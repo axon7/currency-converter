@@ -12,10 +12,17 @@ const initialState = {
   loading: true,
   error: "",
   transactions: [],
-  currentCurrency: ""
+  currentCurrency: {}
 };
 
 const currencyReducer = (state = initialState, action) => {
+  const filteredTransaction = state.transactions.filter(
+    (item, index) => index !== action.payload
+  );
+
+  const currency = action.payload;
+  const rate = state.data.filter(item => item.code === currency);
+
   switch (action.type) {
     case FETCH_CURRENT_RATE_PENDING:
       return {
@@ -40,18 +47,11 @@ const currencyReducer = (state = initialState, action) => {
         transactions: [...state.transactions, action.payload]
       };
     case CHANGE_CURRENCY:
-      console.log(action.payload);
-      let currency = action.payload;
-      let rate = state.data.filter(item => item.code === currency);
-      console.log(rate);
       return {
         ...state,
-        currentCurrency: rate[0] || ""
+        currentCurrency: rate[0] || {}
       };
     case DELETE_TRANSACTION:
-      let filteredTransaction = state.transactions.filter(
-        (item, index) => index !== action.payload
-      );
       return {
         ...state,
         transactions: filteredTransaction

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { changeCurrency } from "../actions/actions";
-// import styled from "styled-components";
 
 const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
   const [currency, setCurrency] = useState("");
 
-  const handleCurrencyChange = e => {
-    setCurrency(e.target.value);
-  };
-
   useEffect(() => {
     changeCurrency(currency);
   }, [currency]);
+
+  const handleCurrencyChange = e => {
+    setCurrency(e.target.value);
+  };
 
   return (
     <div>
@@ -30,7 +30,9 @@ const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
         </select>{" "}
         = {currentCurrency ? currentCurrency.mid : "-"} PLN
       </h1>
-      {!currentCurrency ? <p>Please select currency</p> : null}
+      {Object.keys(currentCurrency).length === 0 ? (
+        <p>Please select currency</p>
+      ) : null}
     </div>
   );
 };
@@ -41,5 +43,14 @@ const mapStateToProps = state => ({
   loading: state.loading,
   currentCurrency: state.currentCurrency
 });
+
+CurrentRate.propTypes = {
+  changeCurrency: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentCurrency: PropTypes.shape({
+    mid: PropTypes.number,
+    code: PropTypes.string
+  }).isRequired
+};
 
 export default connect(mapStateToProps, { changeCurrency })(CurrentRate);

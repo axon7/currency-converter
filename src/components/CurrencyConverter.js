@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchCurrentRate } from "../actions/actions";
 import CurrentRate from "./CurrentRate";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
-// import styled from "styled-components";
 
 const CurrencyConverter = ({ fetchCurrentRate }) => {
   useEffect(() => {
@@ -25,6 +25,10 @@ const mapStateToProps = state => ({
   error: state.error,
   loading: state.loading
 });
+
+CurrencyConverter.propTypes = {
+  fetchCurrentRate: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, { fetchCurrentRate })(
   CurrencyConverter

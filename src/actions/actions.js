@@ -7,8 +7,7 @@ export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
 export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
 
-const URL =
-  "https://cors-anywhere.herokuapp.com/http://api.nbp.pl/api/exchangerates/tables/A?format=json";
+const URL = "http://api.nbp.pl/api/exchangerates/tables/A?format=json";
 
 export const fetchCurrentRatePending = () => ({
   type: FETCH_CURRENT_RATE_PENDING
@@ -25,18 +24,13 @@ export const fetchCurrentRateSuccess = data => ({
 });
 
 export const fetchCurrentRate = () => async dispatch => {
-  console.log("dupa");
-
   try {
     await dispatch(fetchCurrentRatePending());
     const res = await axios.get(URL);
-    console.log(res);
     await dispatch(fetchCurrentRateSuccess(res.data[0]));
   } catch (error) {
     await dispatch(fetchCurrentRateFailure(error));
   }
-
-  console.log("success");
 };
 
 export const addTransaction = transaction => ({

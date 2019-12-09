@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addTransaction } from "../actions/actions";
 
@@ -22,7 +23,7 @@ const TransactionForm = ({ addTransaction, currentCurrency }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (currentCurrency) {
+    if (Object.keys(currentCurrency).length !== 0) {
       addTransaction(form);
       clearForm();
     }
@@ -56,5 +57,13 @@ const mapStateToProps = state => ({
   loading: state.loading,
   currentCurrency: state.currentCurrency
 });
+
+TransactionForm.propTypes = {
+  addTransaction: PropTypes.func.isRequired,
+  currentCurrency: PropTypes.shape({
+    mid: PropTypes.number,
+    code: PropTypes.string
+  }).isRequired
+};
 
 export default connect(mapStateToProps, { addTransaction })(TransactionForm);

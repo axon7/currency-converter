@@ -11,6 +11,8 @@
   "rules": {
     "semi": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "no-shadow": "off",
+    "no-array-index-key": "off"
   }
 }
