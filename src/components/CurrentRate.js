@@ -13,17 +13,12 @@ const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
   useEffect(() => {
     changeCurrency(currency);
   }, [currency]);
-  console.log(currentCurrency);
 
   return (
     <div>
       <h1>
         1{" "}
-        <select
-          onChange={e => {
-            handleCurrencyChange(e);
-          }}
-        >
+        <select onChange={e => handleCurrencyChange(e)}>
           <option defaultChecked>-</option>
           {data.map((item, index) => {
             return (
@@ -35,6 +30,7 @@ const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
         </select>{" "}
         = {currentCurrency ? currentCurrency.mid : "-"} PLN
       </h1>
+      {!currentCurrency ? <p>Please select currency</p> : null}
     </div>
   );
 };
