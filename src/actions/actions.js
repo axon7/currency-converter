@@ -7,7 +7,7 @@ export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
 export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
 
-const URL = "http://api.nbp.pl/api/exchangerates/tables/A?format=json";
+const URL = "https://api.nbp.pl/api/exchangerates/tables/A?format=json";
 
 export const fetchCurrentRatePending = () => ({
   type: FETCH_CURRENT_RATE_PENDING
