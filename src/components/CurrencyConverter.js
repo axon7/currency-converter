@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchCurrentRate } from "../actions/actions";
@@ -6,17 +7,37 @@ import CurrentRate from "./CurrentRate";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
 
+const StyledWrapper = styled.div`
+  width: 90%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5% auto;
+  background-color: #add8e678;
+  box-shadow: 1px 1px 10px #444;
+  text-align: center;
+  /* height: 100%; */
+`;
+
+const StyledAppTitle = styled.h2`
+  margin: 0;
+  background-color: lightblue;
+  padding: 10px;
+  width: 100%;
+`;
 const CurrencyConverter = ({ fetchCurrentRate }) => {
   useEffect(() => {
     fetchCurrentRate();
   }, []);
   return (
-    <div>
-      <h1>currency converter</h1>
+    <StyledWrapper>
+      <StyledAppTitle>Currency converter</StyledAppTitle>
       <CurrentRate />
       <TransactionForm />
       <TransactionList />
-    </div>
+    </StyledWrapper>
   );
 };
 
