@@ -9,13 +9,13 @@ import TransactionList from "./TransactionList";
 
 const StyledWrapper = styled.div`
   width: 90%;
-  max-width: 900px;
+  max-width: 790px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 5% auto;
-  background-color: #add8e678;
+  margin: 20px auto;
+  background-color: #c2e6f391;
   box-shadow: 1px 1px 10px #444;
   text-align: center;
   /* height: 100%; */

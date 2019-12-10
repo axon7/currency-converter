@@ -6,15 +6,20 @@ import { changeCurrency } from "../actions/actions";
 
 const StyledSelect = styled.select`
   background-color: #dff5fc;
-  font-size: 6vw;
-  padding-top: 2%;
-  height: 90%;
+  font-size: 22px;
+  height: 80%;
   border: 2px solid lightblue;
+  cursor: pointer;
+
+  option {
+    font-size: 18px;
+  }
 `;
 
 const StyledRate = styled.div`
   display: flex;
-  font-size: 8vw;
+  height: 50px;
+  font-size: 22px;
   justify-content: center;
   margin: 10px auto;
   align-items: center;
@@ -37,25 +42,28 @@ const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
     setCurrency(e.target.value);
   };
 
+  const selectForm = (
+    <StyledSelect onChange={e => handleCurrencyChange(e)}>
+      <option defaultChecked>-</option>
+      {data.map((item, index) => {
+        return (
+          <option key={index} value={item.code}>
+            {item.code}
+          </option>
+        );
+      })}
+    </StyledSelect>
+  );
+
   return (
     <div>
       <StyledRate>
-        <span>1</span>{" "}
-        <StyledSelect onChange={e => handleCurrencyChange(e)}>
-          <option defaultChecked>-</option>
-          {data.map((item, index) => {
-            return (
-              <option key={index} value={item.code}>
-                {item.code}
-              </option>
-            );
-          })}
-        </StyledSelect>{" "}
-        <span>=</span>
-        <span>
-          {Object.entries(currency).length !== 0 ? currentCurrency.mid : "0"}
-        </span>
-        <span>PLN</span>
+        <p>
+          1 {selectForm}{" "}
+          {`= ${
+            Object.entries(currency).length !== 0 ? currentCurrency.mid : "0"
+          } PLN`}
+        </p>
       </StyledRate>
       {Object.keys(currentCurrency).length === 0 ? (
         <Alert>Please select currency</Alert>

@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { deleteTransaction } from "../actions/actions";
 
-const StyledEmptyListInfo = styled.p`
-  color: darkred;
-`;
-
 const ListItem = styled.div`
   background-color: white;
   width: 90%;
@@ -18,7 +14,7 @@ const ListItem = styled.div`
     background-color: red;
     border: none;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
     border-radius: 5px;
     padding: 6px;
@@ -30,6 +26,11 @@ const ListWithTransactions = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 15px;
+  @media (min-width: 760px) {
+    width: 70%;
+    margin-bottom: 4%;
+  }
 `;
 
 const Summary = styled.div`
@@ -37,7 +38,17 @@ const Summary = styled.div`
   width: 90%;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0 0 0;
+  margin: 10px 10px 15px 0;
+
+  p {
+    overflow-wrap: break-word;
+    width: 100%;
+    margin: 0;
+  }
+  @media (min-width: 760px) {
+    width: 27%;
+    align-self: flex-start;
+  }
 `;
 
 const AllTransactionInfo = styled.div`
@@ -45,6 +56,9 @@ const AllTransactionInfo = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  @media (min-width: 760px) {
+    flex-direction: row;
+  }
 `;
 
 const TransactionTitle = styled.p`
@@ -52,6 +66,7 @@ const TransactionTitle = styled.p`
   margin: 5px 0 0 0;
   color: darkgreen;
   font-weight: bold;
+  overflow-wrap: break-word;
 `;
 
 const SummaryTitle = styled.p`
@@ -77,9 +92,10 @@ const TransactionList = ({
           return (
             <ListItem key={index}>
               <TransactionTitle>{item.transaction}</TransactionTitle>
-              <p>{`${item.amount} ${currentCurrency.code} = ${Math.round(
-                item.amount * currentCurrency.mid * 100
-              ) / 100} PLN`}</p>
+              <p style={{ overflowWrap: "break-word" }}>{`${item.amount} ${
+                currentCurrency.code
+              } = ${Math.round(item.amount * currentCurrency.mid * 100) /
+                100} PLN`}</p>
 
               <button type='button' onClick={() => deleteTransaction(index)}>
                 Delete
@@ -88,29 +104,23 @@ const TransactionList = ({
           );
         })}
       </ListWithTransactions>
-      <Summary>
-        {transactions.length === 0 ? (
-          <StyledEmptyListInfo>
-            Your transaction list is empty. Please add some
-          </StyledEmptyListInfo>
-        ) : (
-          <div>
-            <SummaryTitle>Total amount</SummaryTitle>
-            <p>{`${totalAmountInForeignCurrency} ${
-              currentCurrency.code
-            } = ${Math.round(
-              totalAmountInForeignCurrency * currentCurrency.mid * 100
-            ) / 100} PLN`}</p>
 
-            <SummaryTitle>Biggest transaction:</SummaryTitle>
-            <p>{`${sortedTransactions[0].transaction}: ${
-              sortedTransactions[0].amount
-            } ${currentCurrency.code} = ${Math.round(
-              sortedTransactions[0].amount * currentCurrency.mid * 100
-            ) / 100} PLN`}</p>
-          </div>
-        )}
-      </Summary>
+      {transactions.length === 0 ? null : (
+        <Summary>
+          <SummaryTitle>Total amount</SummaryTitle>
+          <p>{`${totalAmountInForeignCurrency} ${
+            currentCurrency.code
+          } = ${Math.round(
+            totalAmountInForeignCurrency * currentCurrency.mid * 100
+          ) / 100} PLN`}</p>
+          <SummaryTitle>Biggest transaction:</SummaryTitle>
+          <p>{`${sortedTransactions[0].transaction}: ${
+            sortedTransactions[0].amount
+          } ${currentCurrency.code} = ${Math.round(
+            sortedTransactions[0].amount * currentCurrency.mid * 100
+          ) / 100} PLN`}</p>
+        </Summary>
+      )}
     </AllTransactionInfo>
   );
 };

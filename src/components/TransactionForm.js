@@ -16,6 +16,7 @@ const StyledForm = styled.form`
     height: 30px;
     border: 2px solid lightblue;
     padding-left: 5px;
+    font-family: inherit;
   }
 
   button {
