@@ -92,10 +92,9 @@ const TransactionList = ({
           return (
             <ListItem key={index}>
               <TransactionTitle>{item.transaction}</TransactionTitle>
-              <p style={{ overflowWrap: "break-word" }}>{`${item.amount} ${
-                currentCurrency.code
-              } = ${Math.round(item.amount * currentCurrency.mid * 100) /
-                100} PLN`}</p>
+              <p>{`${item.amount} ${currentCurrency.code} = ${Math.round(
+                item.amount * currentCurrency.mid * 100
+              ) / 100} PLN`}</p>
 
               <button type='button' onClick={() => deleteTransaction(index)}>
                 Delete
