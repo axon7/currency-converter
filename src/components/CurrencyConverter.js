@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -28,9 +28,22 @@ const StyledAppTitle = styled.h2`
   width: 100%;
 `;
 const CurrencyConverter = ({ fetchCurrentRate }) => {
-  useEffect(() => {
+  const initFetch = useCallback(() => {
     fetchCurrentRate();
-  }, []);
+  }, [fetchCurrentRate]);
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
+
+  // const initFetch = useCallback(() => {
+  //   dispatch(fetchPosts());
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   initFetch();
+  // }, [initFetch]);
+
   return (
     <StyledWrapper>
       <StyledAppTitle>Currency converter</StyledAppTitle>

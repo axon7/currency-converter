@@ -33,9 +33,9 @@ const Alert = styled.p`
 
 const CurrentRate = ({ data, changeCurrency, currentCurrency }) => {
   const [currency, setCurrency] = useState("");
-
   useEffect(() => {
     changeCurrency(currency);
+    // eslint-disable-next-line
   }, [currency]);
 
   const handleCurrencyChange = e => {
