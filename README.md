@@ -1,8 +1,8 @@
-# React Homework
+# Currency converter
 
 ![Version](https://img.shields.io/npm/v/homework.svg)
 
-> Currency converter
+> Recruitment task
 
 ### Live Demo
 
