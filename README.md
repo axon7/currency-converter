@@ -6,7 +6,7 @@
 
 ### Live Demo
 
-[Link](https://x.herokuapp.com)
+[Link to live demo on Netlify](https://goofy-curie-6b5f7d.netlify.com/)
 
 ### Used:
 
