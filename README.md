@@ -1,12 +1,12 @@
-# React Homework
+# Currency converter
 
 ![Version](https://img.shields.io/npm/v/homework.svg)
 
-> Currency converter
+> Recruitment task
 
 ### Live Demo
 
-[Link](https://x.herokuapp.com)
+[Link to live demo on Netlify](https://goofy-curie-6b5f7d.netlify.com/)
 
 ### Used:
 
