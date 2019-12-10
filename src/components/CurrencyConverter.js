@@ -6,6 +6,7 @@ import { fetchCurrentRate } from "../actions/actions";
 import CurrentRate from "./CurrentRate";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
+import Error from "./Error";
 
 const StyledWrapper = styled.div`
   width: 90%;
@@ -27,7 +28,7 @@ const StyledAppTitle = styled.h2`
   padding: 10px;
   width: 100%;
 `;
-const CurrencyConverter = ({ fetchCurrentRate }) => {
+const CurrencyConverter = ({ fetchCurrentRate, errorMessage }) => {
   const initFetch = useCallback(() => {
     fetchCurrentRate();
   }, [fetchCurrentRate]);
@@ -36,34 +37,31 @@ const CurrencyConverter = ({ fetchCurrentRate }) => {
     initFetch();
   }, [initFetch]);
 
-  // const initFetch = useCallback(() => {
-  //   dispatch(fetchPosts());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   initFetch();
-  // }, [initFetch]);
-
   return (
     <StyledWrapper>
       <StyledAppTitle>Currency converter</StyledAppTitle>
-      <CurrentRate />
-      <TransactionForm />
-      <TransactionList />
+      {errorMessage ? (
+        <Error error={errorMessage} />
+      ) : (
+        <>
+          <CurrentRate />
+          <TransactionForm />
+          <TransactionList />
+        </>
+      )}
     </StyledWrapper>
   );
 };
 
 const mapStateToProps = state => ({
   data: state.data,
-  error: state.error,
+  errorMessage: state.error.message,
   loading: state.loading
 });
 
 CurrencyConverter.propTypes = {
-  fetchCurrentRate: PropTypes.func.isRequired
+  fetchCurrentRate: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, { fetchCurrentRate })(
-  CurrencyConverter
-);
+export default connect(mapStateToProps, { fetchCurrentRate })(CurrencyConverter);

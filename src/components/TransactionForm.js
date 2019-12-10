@@ -56,21 +56,8 @@ const TransactionForm = ({ addTransaction, currentCurrency }) => {
 
   return (
     <StyledForm onSubmit={e => handleSubmit(e)}>
-      <input
-        onChange={updateForm}
-        placeholder='Transaction name'
-        value={form.transaction}
-        name='transaction'
-        required
-      />
-      <input
-        onChange={updateForm}
-        placeholder='Amount in foreign currency'
-        value={form.amount}
-        name='amount'
-        type='number'
-        required
-      />
+      <input onChange={updateForm} placeholder='Transaction name' value={form.transaction} name='transaction' required />
+      <input onChange={updateForm} placeholder='Amount in foreign currency' value={form.amount} name='amount' type='number' required />
       <button type='submit'>ADD</button>
     </StyledForm>
   );

@@ -47,7 +47,6 @@ const Summary = styled.div`
   }
   @media (min-width: 760px) {
     width: 27%;
-    align-self: flex-start;
   }
 `;
 
@@ -58,6 +57,7 @@ const AllTransactionInfo = styled.div`
   width: 100%;
   @media (min-width: 760px) {
     flex-direction: row;
+    align-items: flex-start;
   }
 `;
 
@@ -74,16 +74,12 @@ const SummaryTitle = styled.p`
   margin-top: 6px;
 `;
 
-const TransactionList = ({
-  transactions,
-  currentCurrency,
-  deleteTransaction
-}) => {
+const TransactionList = ({ transactions, currentCurrency, deleteTransaction }) => {
   const totalAmountInForeignCurrency = transactions.reduce((a, b) => {
     return Number(a) + Number(b.amount);
   }, 0);
-
   const sortedTransactions = transactions.sort((a, b) => b.amount - a.amount);
+  const convertToPLN = amount => Math.round(amount * currentCurrency.mid * 100) / 100;
 
   return (
     <AllTransactionInfo>
@@ -92,9 +88,7 @@ const TransactionList = ({
           return (
             <ListItem key={index}>
               <TransactionTitle>{item.transaction}</TransactionTitle>
-              <p>{`${item.amount} ${currentCurrency.code} = ${Math.round(
-                item.amount * currentCurrency.mid * 100
-              ) / 100} PLN`}</p>
+              <p>{`${item.amount} ${currentCurrency.code} = ${convertToPLN(item.amount)} PLN`}</p>
 
               <button type='button' onClick={() => deleteTransaction(index)}>
                 Delete
@@ -106,18 +100,16 @@ const TransactionList = ({
 
       {transactions.length === 0 ? null : (
         <Summary>
-          <SummaryTitle>Total amount</SummaryTitle>
-          <p>{`${totalAmountInForeignCurrency} ${
-            currentCurrency.code
-          } = ${Math.round(
-            totalAmountInForeignCurrency * currentCurrency.mid * 100
-          ) / 100} PLN`}</p>
-          <SummaryTitle>Biggest transaction:</SummaryTitle>
-          <p>{`${sortedTransactions[0].transaction}: ${
-            sortedTransactions[0].amount
-          } ${currentCurrency.code} = ${Math.round(
-            sortedTransactions[0].amount * currentCurrency.mid * 100
-          ) / 100} PLN`}</p>
+          <div style={{ marginBottom: "15px" }}>
+            <SummaryTitle>Total amount</SummaryTitle>
+            <p>{`${totalAmountInForeignCurrency} ${currentCurrency.code} = ${convertToPLN(totalAmountInForeignCurrency)} PLN`}</p>
+          </div>
+          <div>
+            <SummaryTitle>Biggest transaction:</SummaryTitle>
+            <p>{`${sortedTransactions[0].transaction}: ${sortedTransactions[0].amount} ${currentCurrency.code} = ${convertToPLN(
+              sortedTransactions[0].amount
+            )} PLN`}</p>
+          </div>
         </Summary>
       )}
     </AllTransactionInfo>

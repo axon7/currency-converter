@@ -1,6 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import CurrencyConverter from "./components/CurrencyConverter";
 
 const GlobalStyles = createGlobalStyle`
@@ -22,13 +21,13 @@ const AppWrapper = styled.div`
   padding-top: 2%;
 `;
 
-function App() {
+const App = () => {
   return (
     <AppWrapper>
       <GlobalStyles />
       <CurrencyConverter />
     </AppWrapper>
   );
-}
+};
 
 export default App;
