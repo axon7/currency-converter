@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { deleteTransaction } from "../actions/actions";
+import { convertToPLN, findBiggest, calculateTotalSum } from "../utils";
 
 const ListItem = styled.div`
   background-color: white;
@@ -75,11 +76,11 @@ const SummaryTitle = styled.p`
 `;
 
 const TransactionList = ({ transactions, currentCurrency, deleteTransaction }) => {
-  const totalAmountInForeignCurrency = transactions.reduce((a, b) => {
-    return Number(a) + Number(b.amount);
-  }, 0);
-  const sortedTransactions = transactions.sort((a, b) => b.amount - a.amount);
-  const convertToPLN = amount => Math.round(amount * currentCurrency.mid * 100) / 100;
+  const rate = currentCurrency.mid;
+  const { code } = currentCurrency;
+
+  const biggestTransaction = findBiggest(transactions, "amount");
+  const totalSum = calculateTotalSum(transactions, "amount");
 
   return (
     <AllTransactionInfo>
@@ -88,7 +89,7 @@ const TransactionList = ({ transactions, currentCurrency, deleteTransaction }) =
           return (
             <ListItem key={index}>
               <TransactionTitle>{item.transaction}</TransactionTitle>
-              <p>{`${item.amount} ${currentCurrency.code} = ${convertToPLN(item.amount)} PLN`}</p>
+              <p>{`${item.amount} ${code} = ${convertToPLN(item.amount, rate)} PLN`}</p>
 
               <button type='button' onClick={() => deleteTransaction(index)}>
                 Delete
@@ -102,13 +103,11 @@ const TransactionList = ({ transactions, currentCurrency, deleteTransaction }) =
         <Summary>
           <div style={{ marginBottom: "15px" }}>
             <SummaryTitle>Total amount</SummaryTitle>
-            <p>{`${totalAmountInForeignCurrency} ${currentCurrency.code} = ${convertToPLN(totalAmountInForeignCurrency)} PLN`}</p>
+            <p>{`${totalSum} ${code} = ${convertToPLN(totalSum, rate)} PLN`}</p>
           </div>
           <div>
             <SummaryTitle>Biggest transaction:</SummaryTitle>
-            <p>{`${sortedTransactions[0].transaction}: ${sortedTransactions[0].amount} ${currentCurrency.code} = ${convertToPLN(
-              sortedTransactions[0].amount
-            )} PLN`}</p>
+            <p>{`${biggestTransaction.transaction}: ${biggestTransaction.amount} ${code} = ${convertToPLN(biggestTransaction.amount, rate)} PLN`}</p>
           </div>
         </Summary>
       )}
